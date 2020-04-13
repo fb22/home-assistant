@@ -44,16 +44,16 @@ class AutomateNotificationService(BaseNotificationService):
 
     def send_message(self, message="", **kwargs):
         """Send a message to a user."""
-        
+
         # Extract params from data dict
         data = dict(kwargs.get(ATTR_DATA) or {})
-        priority = data.get(ATTR_PRIORITY).lower()
-        
-        _LOGGER.debug("Sending to: %s, %s, prio: %s", self._recipient, str(self._device), priority)
-        
-        if priority not in ["normal", "high"]:
+        priority = data.get(ATTR_PRIORITY)
+
+        if priority not in ["normal", "high"] or priority is None:
             priority = "normal"
-        
+
+        _LOGGER.debug("Sending to: %s, %s, prio: %s", self._recipient, str(self._device), priority)
+
         data = {
             "secret": self._secret,
             "to": self._recipient,
