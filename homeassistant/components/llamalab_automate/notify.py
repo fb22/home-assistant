@@ -4,7 +4,11 @@ import logging
 import requests
 import voluptuous as vol
 
-from homeassistant.components.notify import PLATFORM_SCHEMA, BaseNotificationService, ATTR_DATA
+from homeassistant.components.notify import (
+    PLATFORM_SCHEMA,
+    BaseNotificationService,
+    ATTR_DATA,
+)
 from homeassistant.const import CONF_API_KEY, CONF_DEVICE, HTTP_OK
 from homeassistant.helpers import config_validation as cv
 
@@ -47,9 +51,11 @@ class AutomateNotificationService(BaseNotificationService):
 
         # Extract params from data dict
         data = dict(kwargs.get(ATTR_DATA) or {})
-        priority = data.get(ATTR_PRIORITY,"normal")
+        priority = data.get(ATTR_PRIORITY, "Normal")
 
-        _LOGGER.debug("Sending to: %s, %s, prio: %s", self._recipient, str(self._device), priority)
+        _LOGGER.debug(
+            "Sending to: %s, %s, prio: %s", self._recipient, str(self._device), priority
+        )
 
         data = {
             "secret": self._secret,
