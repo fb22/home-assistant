@@ -47,10 +47,7 @@ class AutomateNotificationService(BaseNotificationService):
 
         # Extract params from data dict
         data = dict(kwargs.get(ATTR_DATA) or {})
-        priority = data.get(ATTR_PRIORITY)
-
-        if priority not in ["normal", "high"] or priority is None:
-            priority = "normal"
+        priority = data.get(ATTR_PRIORITY,"normal")
 
         _LOGGER.debug("Sending to: %s, %s, prio: %s", self._recipient, str(self._device), priority)
 
